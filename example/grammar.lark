@@ -1,0 +1,21 @@
+dict: "{" [dict_item ("," dict_item)*] ","? "}"
+
+dict_item: string ":" value
+    | number ":" value
+
+list: "[" [value ("," value)*] ","? "]"
+
+?value: ESCAPED_STRING  -> string
+    | SIGNED_NUMBER     -> number
+    | dict
+    | list
+    | value
+
+string: ESCAPED_STRING
+number: SIGNED_NUMBER
+
+%import common.ESCAPED_STRING
+%import common.SIGNED_NUMBER
+%import common.WS
+%ignore WS
+
